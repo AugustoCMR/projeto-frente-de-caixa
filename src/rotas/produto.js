@@ -4,10 +4,12 @@ const cadastrarProduto = require("../controladores/produto/cadastrar");
 const editarProduto = require("../controladores/produto/editar");
 const listarProdutos = require("../controladores/produto/listar");
 const detalharProduto = require("../controladores/produto/detalhar");
+const deletarProduto = require("../controladores/produto/deletar");
 
 rotas.post("/produto", cadastrarProduto);
 rotas.put("/produto/:id", editarProduto);
 rotas.get("/produto", listarProdutos);
 rotas.get("/produto/:id", detalharProduto);
+rotas.delete("/produto/:id", deletarProduto);
 
 module.exports = rotas
