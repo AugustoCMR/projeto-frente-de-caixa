@@ -1,4 +1,4 @@
-CREATE DATABASE pdv 
+CREATE DATABASE pdv2 
 
 create table
     usuarios(
