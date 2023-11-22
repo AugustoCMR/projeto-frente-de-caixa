@@ -8,7 +8,7 @@ const schemaCadastro = joi.object({
     quantidade_estoque: joi.number().integer().min(0).required().messages({
         "any.required": "O campo estoque é obrigatório",
         "number.integer": "O campo estoque deve ser um número inteiro",
-        "number.base": "O campo estoque não pode ser vazio",
+        "number.base": "O campo estoque é obrigatório e deve conter apenas números",
         "number.min": "O campo estoque não pode ser negativo"     
     }),
     valor: joi.number().min(1).required().messages({
@@ -18,7 +18,8 @@ const schemaCadastro = joi.object({
     }),
     categoria_id: joi.number().integer().required().messages({
         "any.required": "O campo id da categoria é obrigatório",
-        "number.base": "O campo id da categoria não pode ser vazio"
+        "number.base": "O campo id da categoria não pode ser vazio e deve conter apenas números",
+        "number.integer": "O campo categoria_id deve ser um número inteiro"
     })
 })
 
