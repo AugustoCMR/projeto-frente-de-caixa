@@ -22,7 +22,7 @@ CREATE TABLE
     produtos(
         id serial primary key unique,
         descricao text,
-        quantidade_estoque text,
+        quantidade_estoque numeric,
         valor numeric,
         categoria_id integer references categorias(id)
     );
@@ -46,7 +46,7 @@ create table
         id serial primary key,
         cliente_id int references clientes(id),
         observacao text,
-        valor_total int
+        valor_total numeric
     );
 
 create table
@@ -54,8 +54,17 @@ create table
         id serial primary key,
         pedido_id int references pedidos(id),
         produto_id int references produtos(id),
-        quantidade_produto int,
-        valor_produto int
+        quantidade_produto numeric,
+        valor_produto numeric
     );
 
 ALTER TABLE produtos ADD COLUMN produto_imagem text;
+
+
+
+
+
+
+
+
+
