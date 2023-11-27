@@ -7,10 +7,11 @@ const validaCpfCliente = async (req, res, next) => {
         
         const buscaCPF = await knex("clientes").where({cpf}).first();
 
+    
         if(buscaCPF) {
-           return res.status(400).json({mensagem: "O CPF informado já possuí cadastro"});
-        }
-
+            return res.status(400).json({mensagem: "O CPF informado já possuí cadastro"});
+         }
+     
         next();
 
     } catch (error) {

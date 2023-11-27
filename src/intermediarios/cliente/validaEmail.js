@@ -5,12 +5,13 @@ const validaEmailCliente = async (req, res, next) => {
 
     try {
         
+
         const buscaEmail = await knex("clientes").where({email}).first();
 
         if(buscaEmail) {
-           return res.status(400).json({mensagem: "O email informado já possuí cadastro"});
+            return res.status(400).json({mensagem: "O email informado já possuí cadastro"});
         }
-
+        
         next();
 
     } catch (error) {

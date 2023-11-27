@@ -1,13 +1,27 @@
 const knex = require("../../conexao");
+const promiseCEP = require("cep-promise");
 
 const editarCliente = async (req, res) => {
-    const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado} = req.body;
-
+    const { nome, email, cpf, cep, numero} = req.body;
+    
     const { id } = req.params;
+
+    let rua, bairro, cidade, estado;
 
     try {
         
-        await knex("clientes").insert({nome, email, cpf, cep, rua, numero, bairro, cidade, estado}).where({id});
+        if(cep) {
+            const buscaCEP = promiseCEP(cep);
+
+            if(buscaCEP) {
+                rua = buscaCEP.street,
+                bairro = buscaCEP.neighborhood,
+                cidade = buscaCEP.city,
+                estado = buscaCEP.state
+            }
+        }
+
+        await knex("clientes").update({nome, email, cpf, cep, rua, numero, bairro, cidade, estado}).where({id});
 
         return res.status(200).json({mensagem: "Cliente atualizado com sucesso."});
 
