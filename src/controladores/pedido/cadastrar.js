@@ -1,4 +1,5 @@
 const knex = require("../../conexao");
+const {enviarEmail} = require("../../utils/funcoes_cadastrarPedido");
 
 const cadastrarPedido = async (req, res) => {
     const {cliente_id, observacao, pedido_produtos} = req.body;
@@ -15,7 +16,7 @@ const cadastrarPedido = async (req, res) => {
                     quantidade_produto: produto.quantidade_produto
                 });
                
-                let valorProduto = await knex("produtos").select("valor").where({id: produto.produto_id}).first().debug();
+                let valorProduto = await knex("produtos").select("valor").where({id: produto.produto_id}).first();
 
                 valorTotal += parseInt(valorProduto.valor); 
             }
@@ -23,14 +24,16 @@ const cadastrarPedido = async (req, res) => {
 
         const cadastrarPedido = await knex("pedidos").insert({cliente_id, observacao, valor_total: valorTotal}).returning("id");
 
-       
-        console.log("oi")
         for(let produto of pedido_produtos) {
            
             let valorProduto = await knex("produtos").select("valor").where({id: produto.produto_id}).first();
 
             await knex("pedido_produtos").insert({pedido_id: cadastrarPedido[0].id,produto_id: produto.produto_id, quantidade_produto: produto.quantidade_produto, valor_produto: valorProduto.valor});
+
+            await knex("produtos").decrement("quantidade_estoque", produto.quantidade_produto).where({id: produto.produto_id});
         }
+
+        enviarEmail();
 
         return res.status(201).json({
             cliente_id,
