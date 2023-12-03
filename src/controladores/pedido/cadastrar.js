@@ -18,7 +18,9 @@ const cadastrarPedido = async (req, res) => {
                
                 let valorProduto = await knex("produtos").select("valor").where({id: produto.produto_id}).first();
 
-                valorTotal += parseInt(valorProduto.valor); 
+                let calculaQuantidade = parseInt(valorProduto.valor * produto.quantidade_produto);
+                
+                valorTotal += calculaQuantidade; 
             }
         }
 

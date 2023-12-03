@@ -15,7 +15,7 @@ const schemaCadastro = joi.object({
         quantidade_produto: joi.number().integer().min(1).required().messages({
             'any.required': 'Campo da Quantidade do produto é obrigatório',
             'number.base': 'Campo da Quantidade do produto deve ser preenchida corretamente',
-            'number.min': 'Quantidade inválida',
+            'number.min': 'Quantidade do produto deve ser maior que 0',
             "number.integer": "O Campo da Quantidade do Produto deve ser um número inteiro"
         })
     })  
