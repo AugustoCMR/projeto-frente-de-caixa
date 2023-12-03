@@ -12,11 +12,12 @@ const schemaCadastro = require("../schema/produto/schemaCadastro");
 
 const validaIdCategoria = require("../intermediarios/categoria/validaId");
 const validaIdProduto = require("../intermediarios/produto/validaId");
+const validaDeletarProduto = require("../intermediarios/produto/deletar");
 
 rotas.post("/produto", validaSchema(schemaCadastro), validaIdCategoria, cadastrarProduto);
 rotas.put("/produto/:id", validaIdProduto, validaSchema(schemaCadastro), validaIdCategoria, editarProduto);
 rotas.get("/produto", listarProdutos);
 rotas.get("/produto/:id", validaIdProduto, detalharProduto);
-rotas.delete("/produto/:id", validaIdProduto, deletarProduto);
+rotas.delete("/produto/:id", validaIdProduto, validaDeletarProduto, deletarProduto);
 
 module.exports = rotas
