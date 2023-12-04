@@ -1,4 +1,5 @@
 const knex = require("../../conexao");
+const { deleteImagem, buscarImagem } = require("../../utils/upload_arquivos/upload_aws")
 
 const deletarProduto = async (req, res) => {
     const { id } = req.params;
@@ -6,6 +7,12 @@ const deletarProduto = async (req, res) => {
     try {
         
         await knex("produtos").where({ id }).del();
+
+        const imagem_bucket = await buscarImagem(id);
+
+        if (imagem_bucket.length > 0) {
+            await deleteImagem(imagem_bucket[0].Key);
+        }
 
         return res.status(204).send();
 

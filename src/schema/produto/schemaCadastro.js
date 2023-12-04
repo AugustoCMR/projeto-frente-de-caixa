@@ -20,7 +20,8 @@ const schemaCadastro = joi.object({
         "any.required": "O campo id da categoria é obrigatório",
         "number.base": "O campo id da categoria não pode ser vazio e deve conter apenas números",
         "number.integer": "O campo categoria_id deve ser um número inteiro"
-    })
+    }),
+    produto_imagem: joi.string().allow("")
 })
 
 module.exports = schemaCadastro;
