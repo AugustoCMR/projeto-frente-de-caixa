@@ -5,7 +5,7 @@ const listarClientes = async (req, res) => {
     
 
     try {
-        console.log("oi")
+        
         const listaClientes = await knex("clientes").select("*");
 
         return res.status(200).json(listaClientes);
