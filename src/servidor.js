@@ -6,8 +6,10 @@ const rotasCategoria = require("./rotas/categoria");
 const rotasProduto = require("./rotas/produto");
 const rotasCliente = require("./rotas/cliente");
 const rotasPedidos = require("./rotas/pedido");
+const cors = require("cors");
 
 app.use(express.json());
+app.use(cors());
 app.use("/", rotasCategoria);
 app.use("/", rotasUsuario);
 app.use("/", rotasProduto);
